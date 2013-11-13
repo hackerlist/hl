@@ -61,7 +61,7 @@ func init() {
 			fmt.Printf("%s\n", strings.Repeat("-", twidth))
 
 			for _, m := range missions {
-				fmt.Printf("Id: %-5d Openings: %-5d Budget: %-10.0f\n", m.Id, m.Openings, m.BudgetEst)
+        fmt.Printf("Id: %-5d Organization: %-20.20s Openings: %-5d Budget: %-10.0f\n", m.Id, m.Org.User.Username, m.Openings, m.BudgetEst)
 				fmt.Printf("Title: %s\n", m.Title)
 				desclines := wrap(m.Description, twidth)
 				fmt.Print("Description:\n")
