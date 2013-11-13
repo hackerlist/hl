@@ -2,7 +2,9 @@ package main
 
 import (
 	"fmt"
+	"github.com/hackerlist/hljson"
 	"log"
+	"strings"
 )
 
 // Interface of all commands
@@ -42,6 +44,34 @@ func init() {
 		func(argv []string) string {
 			log.Printf("args: %+v", argv)
 			return fmt.Sprintf("%+v", TheApi.Ls())
+		},
+	}
+
+	Commands["missions"] = &Command{
+		"missions",
+		"list missions",
+		func(argv []string) string {
+			missions, err := hljson.GetMissions()
+			if err != nil {
+				log.Printf("Error retrieving missions: %s", err)
+			}
+
+			twidth := TerminalWidth()
+
+			fmt.Printf("%s\n", strings.Repeat("-", twidth))
+
+			for _, m := range missions {
+        fmt.Printf("Id: %-5d Organization: %-20.20s Openings: %-5d Budget: %-10.0f\n", m.Id, m.Org.User.Username, m.Openings, m.BudgetEst)
+				fmt.Printf("Title: %s\n", m.Title)
+				desclines := wrap(m.Description, twidth)
+				fmt.Print("Description:\n")
+				for _, l := range desclines {
+					fmt.Println(l)
+				}
+				fmt.Printf("%s\n", strings.Repeat("-", twidth))
+			}
+
+			return ""
 		},
 	}
 }

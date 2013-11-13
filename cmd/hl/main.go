@@ -28,7 +28,7 @@ func main() {
 
 	for _, c := range Commands {
 		if os.Args[1] == c.Name() {
-			fmt.Println(c.Run(os.Args[1:]))
+			c.Run(os.Args[1:])
 		}
 	}
 }
