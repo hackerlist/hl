@@ -19,12 +19,12 @@ func main() {
 		usage()
 	}
 
-  if conf, err := GetConfig(); err != nil {
-    fmt.Fprintf(os.Stderr, "can't load config: %s\n", err)
-    os.Exit(1)
-  } else {
-    fmt.Printf("config: %+v\n", conf)
-  }
+	if conf, err := GetConfig(); err != nil {
+		fmt.Fprintf(os.Stderr, "can't load config: %s\n", err)
+		os.Exit(1)
+	} else {
+		fmt.Printf("config: %+v\n", conf)
+	}
 
 	for _, c := range Commands {
 		if os.Args[1] == c.Name() {
